@@ -1,0 +1,15 @@
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\bin\Debug\netcoreapp2.2\ElasticSearch.MockData.deps.json
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\bin\Debug\netcoreapp2.2\ElasticSearch.MockData.runtimeconfig.json
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\bin\Debug\netcoreapp2.2\ElasticSearch.MockData.runtimeconfig.dev.json
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\bin\Debug\netcoreapp2.2\ElasticSearch.MockData.dll
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\bin\Debug\netcoreapp2.2\ElasticSearch.MockData.pdb
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\bin\Debug\netcoreapp2.2\ElasticSearch.Bussiness.dll
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\bin\Debug\netcoreapp2.2\ElasticSearch.Dto.dll
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\bin\Debug\netcoreapp2.2\ElasticSearch.Bussiness.pdb
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\bin\Debug\netcoreapp2.2\ElasticSearch.Dto.pdb
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\obj\Debug\netcoreapp2.2\ElasticSearch.MockData.csprojAssemblyReference.cache
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\obj\Debug\netcoreapp2.2\ElasticSearch.MockData.AssemblyInfoInputs.cache
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\obj\Debug\netcoreapp2.2\ElasticSearch.MockData.AssemblyInfo.cs
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\obj\Debug\netcoreapp2.2\ElasticSearch.MockData.csproj.CopyComplete
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\obj\Debug\netcoreapp2.2\ElasticSearch.MockData.dll
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.MockData\obj\Debug\netcoreapp2.2\ElasticSearch.MockData.pdb

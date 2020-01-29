@@ -1,0 +1,11 @@
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Bussiness\bin\Debug\netcoreapp2.2\ElasticSearch.Bussiness.deps.json
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Bussiness\bin\Debug\netcoreapp2.2\ElasticSearch.Bussiness.dll
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Bussiness\bin\Debug\netcoreapp2.2\ElasticSearch.Bussiness.pdb
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Bussiness\bin\Debug\netcoreapp2.2\ElasticSearch.Dto.dll
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Bussiness\bin\Debug\netcoreapp2.2\ElasticSearch.Dto.pdb
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Bussiness\obj\Debug\netcoreapp2.2\ElasticSearch.Bussiness.csprojAssemblyReference.cache
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Bussiness\obj\Debug\netcoreapp2.2\ElasticSearch.Bussiness.AssemblyInfoInputs.cache
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Bussiness\obj\Debug\netcoreapp2.2\ElasticSearch.Bussiness.AssemblyInfo.cs
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Bussiness\obj\Debug\netcoreapp2.2\ElasticSearch.Bussiness.csproj.CopyComplete
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Bussiness\obj\Debug\netcoreapp2.2\ElasticSearch.Bussiness.dll
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Bussiness\obj\Debug\netcoreapp2.2\ElasticSearch.Bussiness.pdb

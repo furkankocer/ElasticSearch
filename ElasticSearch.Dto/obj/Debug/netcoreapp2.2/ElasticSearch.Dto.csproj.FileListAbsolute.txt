@@ -1,0 +1,8 @@
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Dto\bin\Debug\netcoreapp2.2\ElasticSearch.Dto.deps.json
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Dto\bin\Debug\netcoreapp2.2\ElasticSearch.Dto.dll
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Dto\obj\Debug\netcoreapp2.2\ElasticSearch.Dto.AssemblyInfoInputs.cache
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Dto\obj\Debug\netcoreapp2.2\ElasticSearch.Dto.AssemblyInfo.cs
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Dto\bin\Debug\netcoreapp2.2\ElasticSearch.Dto.pdb
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Dto\obj\Debug\netcoreapp2.2\ElasticSearch.Dto.dll
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Dto\obj\Debug\netcoreapp2.2\ElasticSearch.Dto.pdb
+C:\Users\Furkan\source\repos\ElasticSearch\ElasticSearch.Dto\obj\Debug\netcoreapp2.2\ElasticSearch.Dto.csprojAssemblyReference.cache
