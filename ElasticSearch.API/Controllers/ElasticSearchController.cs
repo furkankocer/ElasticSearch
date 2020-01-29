@@ -14,32 +14,42 @@ namespace ElasticSearch.API.Controllers
     [ApiController]
     public class ElasticSearchController : Controller
     {
-        public readonly IElasticSearchService _elasticSearchService;
-        const string USER_SUGGEST_INDEX = "user_suggest";
+        public static IElasticSearchService _elasticSearchService;
+        public static readonly ConnectionSettings connectionSettings =
+            new ConnectionSettings(new Uri("http://localhost:9200"))
+            .DefaultIndex("register_log");
+        private static readonly ElasticClient _elasticClient = new ElasticClient(connectionSettings);
+        const string indexName = "register_log";
+
         public ElasticSearchController(IElasticSearchService elasticSearchService)
         {
             _elasticSearchService = elasticSearchService;
         }
 
         [HttpGet("search")]
-        public async Task<UserSuggestResponseDto> Get(string keyword)
+        public async Task<List<LogDto>> Search(string keyword)
         {
-            return await _elasticSearchService.SuggestAsync(USER_SUGGEST_INDEX, keyword);
+            return await _elasticSearchService.Search(indexName, keyword);
         }
 
-        [HttpPost("insertLog")]
-        public void InsertLog([FromBody] LogListDto model)
+        [HttpPost("createRegister")]
+        public void CreateRegister([FromBody] LogDto model)
         {
-            var connectionSettings = new ConnectionSettings(new Uri("http://localhost:9200"));
-            IElasticSearchService autocompleteService = new ElasticSearchService(connectionSettings);
-            string userSuggestIndex = "user_suggest";
-
-            bool isCreated = autocompleteService.CreateIndexAsync(userSuggestIndex).Result;
-
-            if (isCreated)
+            if (!_elasticClient.IndexExists(indexName).Exists)
             {
-                autocompleteService.IndexAsync(userSuggestIndex, model.Logs).Wait();
+                var indexSettings = new IndexSettings();
+                indexSettings.NumberOfReplicas = 1;
+                indexSettings.NumberOfShards = 3;
+
+                var createIndexDescriptor = new CreateIndexDescriptor(indexName)
+                    .Mappings(ms => ms
+                              .Map<LogDto>(m => m
+                                    .AutoMap()) )
+                    .InitializeUsing(new IndexState() { Settings = indexSettings })
+                    .Aliases(x => x.Alias(indexName));
             }
+
+            _elasticClient.Index<LogDto>(model, idx => idx.Index(indexName));
         }
     }
 }

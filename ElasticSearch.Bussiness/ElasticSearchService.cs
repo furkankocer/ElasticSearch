@@ -10,33 +10,11 @@ namespace ElasticSearch.Bussiness
 {
     public class ElasticSearchService : IElasticSearchService
     {
-        readonly ElasticClient _elasticClient;
+        private readonly ElasticClient _elasticClient;
 
         public ElasticSearchService(ConnectionSettings connectionSettings)
         {
             _elasticClient = new ElasticClient(connectionSettings);
-        }
-
-        public async Task<bool> CreateIndexAsync(string indexName)
-        {
-            var createIndexDescriptor = new CreateIndexDescriptor(indexName)
-                .Mappings(ms => ms
-                          .Map<LogDto>(m => m
-                                .AutoMap()
-                                .Properties(ps => ps
-                                    .Completion(c => c
-                                        .Name(p => p.Suggest))))
-
-                         );
-
-            if (_elasticClient.IndexExists(indexName.ToLowerInvariant()).Exists)
-            {
-                _elasticClient.DeleteIndex(indexName.ToLowerInvariant());
-            }
-
-            ICreateIndexResponse createIndexResponse = await _elasticClient.CreateIndexAsync(createIndexDescriptor);
-
-            return createIndexResponse.IsValid;
         }
 
         public async Task IndexAsync(string indexName, List<LogDto> users)
@@ -44,32 +22,23 @@ namespace ElasticSearch.Bussiness
             await _elasticClient.IndexManyAsync(users, indexName);
         }
 
-        public async Task<UserSuggestResponseDto> SuggestAsync(string indexName, string keyword)
+        public async Task<List<LogDto>> Search(string indexName, string keyword)
         {
-            ISearchResponse<LogDto> searchResponse = await _elasticClient.SearchAsync<LogDto>(s => s
+            var searchResponse = await _elasticClient.SearchAsync<LogDto>(s => s
                                      .Index(indexName)
-                                     .Suggest(su => su
-                                          .Completion("suggestions", c => c
-                                               .Field(f => f.Suggest)
-                                               .Prefix(keyword)
-                                               .Fuzzy(f => f
-                                                   .Fuzziness(Fuzziness.Auto)
-                                               )
-                                               .Size(5))
-                                             ));
+                                        .Query(q => q
+                                        .Prefix(p => p.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase) , keyword) &&  +q
+                                        .Range(r => r
+                                        .Field(f => f.Name))));
 
-            var suggests = from suggest in searchResponse.Suggest["suggestions"]
-                           from option in suggest.Options
-                           select new UserSuggestDto
-                           {
-                               Name = option.Text,
+            var result = new List<LogDto>();
 
-                           };
-
-            return new UserSuggestResponseDto
+            foreach (var item in searchResponse.Documents)
             {
-                UserSuggests = suggests
-            };
+                result.Add(item);
+            }
+
+            return result.ToList();
         }
     }
 }

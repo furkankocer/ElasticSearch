@@ -13,6 +13,5 @@ namespace ElasticSearch.Dto
         public string LastLocation { get; set; }
         public string BirthDate { get; set; }
         public DateTime DateTime { get; set; }
-        public CompletionField Suggest { get; set; }
     }
 }

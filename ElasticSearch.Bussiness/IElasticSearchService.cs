@@ -8,8 +8,7 @@ namespace ElasticSearch.Bussiness
 {
     public interface IElasticSearchService
     {
-        Task<bool> CreateIndexAsync(string indexName);
         Task IndexAsync(string indexName, List<LogDto> users);
-        Task<UserSuggestResponseDto> SuggestAsync(string indexName, string keyword);
+        Task<List<LogDto>> Search(string indexName, string keyword);
     }
 }

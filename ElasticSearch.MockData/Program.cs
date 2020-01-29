@@ -57,13 +57,13 @@ namespace ElasticSearch.MockData
 
             var connectionSettings = new ConnectionSettings(new Uri("http://localhost:9200"));
             IElasticSearchService autocompleteService = new ElasticSearchService(connectionSettings);
-            string productSuggestIndex = "user_suggest";
+            string userSuggestIndex = "user_suggest";
 
-            bool isCreated = autocompleteService.CreateIndexAsync(productSuggestIndex).Result;
+            bool isCreated = autocompleteService.CreateIndexAsync(userSuggestIndex).Result;
 
             if (isCreated)
             {
-                autocompleteService.IndexAsync(productSuggestIndex, users).Wait();
+                autocompleteService.IndexAsync(userSuggestIndex, users).Wait();
             }
         }
     }
