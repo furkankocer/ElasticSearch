@@ -27,7 +27,7 @@ namespace ElasticSearch.Bussiness
             var searchResponse = await _elasticClient.SearchAsync<LogDto>(s => s
                                      .Index(indexName)
                                         .Query(q => q
-                                        .Prefix(p => p.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase) , keyword) &&  +q
+                                        .Prefix(p => p.Name, keyword) && +q
                                         .Range(r => r
                                         .Field(f => f.Name))));
 
