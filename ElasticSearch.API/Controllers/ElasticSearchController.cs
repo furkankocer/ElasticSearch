@@ -22,7 +22,7 @@ namespace ElasticSearch.API.Controllers
             new ConnectionSettings(new Uri("http://localhost:9200"))
             .DefaultIndex("register_log");
         private static readonly ElasticClient _elasticClient = new ElasticClient(connectionSettings);
-        const string indexName = "register_logs";
+        const string index = "register_logs";
 
         public ElasticSearchController(IElasticSearchService elasticSearchService)
         {
@@ -32,33 +32,34 @@ namespace ElasticSearch.API.Controllers
         [HttpGet("search")]
         public async Task<List<LogDto>> Search(string keyword)
         {
-            return await _elasticSearchService.Search(indexName, keyword);
+            return await _elasticSearchService.Search(index, keyword);
         }
 
         [HttpPost("createRegister")]
         public void CreateRegister([FromBody] LogDto model)
         {
-            if (!_elasticClient.IndexExists(indexName).Exists)
+            if (!_elasticClient.IndexExists(index).Exists)
             {
                 var indexSettings = new IndexSettings();
                 indexSettings.NumberOfReplicas = 1;
                 indexSettings.NumberOfShards = 3;
 
-                var createIndexDescriptor = new CreateIndexDescriptor(indexName)
+                var createIndexDescriptor = new CreateIndexDescriptor(index)
                     .Mappings(ms => ms
                               .Map<LogDto>(m => m
                                     .AutoMap()) )
                     .InitializeUsing(new IndexState() { Settings = indexSettings })
-                    .Aliases(x => x.Alias(indexName));
+                    .Aliases(x => x.Alias(index));
             }
             model.DateTime = DateTime.Now;
-            _elasticClient.Index<LogDto>(model, idx => idx.Index(indexName));
+            _elasticClient.Index<LogDto>(model, idx => idx.Index(index));
         }
 
-        [HttpPost("uploadExcel")]
+        [HttpPost("uploadCreateIndex")]
         public async Task<ExcelResponseDto<List<LogDto>>> Import(IFormFile formFile, CancellationToken cancellationToken)
         {
-            return await _elasticSearchService.Import(formFile, cancellationToken);
+            string indexName = index;
+            return await _elasticSearchService.Import(formFile, cancellationToken,indexName);
         }
     }
 }

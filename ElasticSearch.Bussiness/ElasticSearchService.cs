@@ -20,8 +20,26 @@ namespace ElasticSearch.Bussiness
         {
             _elasticClient = new ElasticClient(connectionSettings);
         }
+        public void CreateIndex(string indexName)
+        {
+            if (!_elasticClient.IndexExists(indexName).Exists)
+            {
+                var indexSettings = new IndexSettings();
+                indexSettings.NumberOfReplicas = 1;
+                indexSettings.NumberOfShards = 3;
 
-        public async Task<ExcelResponseDto<List<LogDto>>> Import(IFormFile formFile, CancellationToken cancellationToken)
+                var createIndexDescriptor = new CreateIndexDescriptor(indexName)
+                    .Mappings(ms => ms
+                              .Map<LogDto>(m => m
+                                    .AutoMap()))
+                    .InitializeUsing(new IndexState() { Settings = indexSettings })
+                    .Aliases(x => x.Alias(indexName));
+
+                ICreateIndexResponse createIndexResponse = _elasticClient.CreateIndex(createIndexDescriptor);
+            }
+        }
+
+        public async Task<ExcelResponseDto<List<LogDto>>> Import(IFormFile formFile, CancellationToken cancellationToken, string indexName)
         {
             if (formFile == null || formFile.Length <= 0)
             {
@@ -57,7 +75,9 @@ namespace ElasticSearch.Bussiness
                     }
                 }
             }
-            IndexAsync("register_logs", list).Wait();
+            CreateIndex(indexName);
+            IndexAsync(indexName, list).Wait();
+
             return ExcelResponseDto<List<LogDto>>.GetResult(0, "OK", list);
         }
 

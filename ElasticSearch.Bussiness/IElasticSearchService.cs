@@ -13,6 +13,6 @@ namespace ElasticSearch.Bussiness
     {
         Task IndexAsync(string indexName, List<LogDto> users);
         Task<List<LogDto>> Search(string indexName, string keyword);
-        Task<ExcelResponseDto<List<LogDto>>> Import(IFormFile formFile, CancellationToken cancellationToken);
+        Task<ExcelResponseDto<List<LogDto>>> Import(IFormFile formFile, CancellationToken cancellationToken,string indexName);
     }
 }
