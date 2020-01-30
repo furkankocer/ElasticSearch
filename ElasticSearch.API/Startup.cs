@@ -39,7 +39,6 @@ namespace ElasticSearch.API
                 {
                     Title = "Swagger on ASP.NET Core",
                     Version = "1.0.0",
-                    Description = "Try Swagger on (ASP.NET Core 2.1)",
                     TermsOfService = "http://swagger.io/terms/"
                 });
             });
@@ -61,11 +60,7 @@ namespace ElasticSearch.API
             app.UseSwagger()
             .UseSwaggerUI(c =>
             {
-                //TODO: Either use the SwaggerGen generated Swagger contract (generated from C# classes)
                 c.SwaggerEndpoint("/swagger/CoreSwagger/swagger.json", "Swagger Test .Net Core");
-
-                //TODO: Or alternatively use the original Swagger contract that's included in the static files
-                // c.SwaggerEndpoint("/swagger-original.json", "Swagger Petstore Original");
             });
             app.UseHttpsRedirection();
             app.UseMvc();
