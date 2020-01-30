@@ -12,7 +12,7 @@ namespace ElasticSearch.Bussiness
     public interface IElasticSearchService
     {
         Task IndexAsync(string indexName, List<LogDto> users);
-        Task<List<LogDto>> Search(string indexName, string keyword);
-        Task<ExcelResponseDto<List<LogDto>>> Import(IFormFile formFile, CancellationToken cancellationToken,string indexName);
+        Task<List<LogDto>> Search(string indexName, string keyword, int page, int pageSize);
+        Task<ExcelResponseDto<List<LogDto>>> Import(IFormFile formFile, CancellationToken cancellationToken, string indexName);
     }
 }

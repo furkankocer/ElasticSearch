@@ -30,9 +30,9 @@ namespace ElasticSearch.API.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<List<LogDto>> Search(string keyword)
+        public async Task<List<LogDto>> Search(string keyword, int page, int pageSize)
         {
-            return await _elasticSearchService.Search(index, keyword);
+            return await _elasticSearchService.Search(index, keyword, page, pageSize);
         }
 
         [HttpPost("createRegister")]
@@ -47,7 +47,7 @@ namespace ElasticSearch.API.Controllers
                 var createIndexDescriptor = new CreateIndexDescriptor(index)
                     .Mappings(ms => ms
                               .Map<LogDto>(m => m
-                                    .AutoMap()) )
+                                    .AutoMap()))
                     .InitializeUsing(new IndexState() { Settings = indexSettings })
                     .Aliases(x => x.Alias(index));
             }
@@ -59,7 +59,34 @@ namespace ElasticSearch.API.Controllers
         public async Task<ExcelResponseDto<List<LogDto>>> Import(IFormFile formFile, CancellationToken cancellationToken)
         {
             string indexName = index;
-            return await _elasticSearchService.Import(formFile, cancellationToken,indexName);
+            return await _elasticSearchService.Import(formFile, cancellationToken, indexName);
         }
+
+        [HttpGet("getListAllUsers")]
+        public async Task<List<LogDto>> GetAllErrors(int page, int pageSize)
+        {
+            var response = await _elasticClient.SearchAsync<LogDto>(p => p
+                                 .Index(index)
+                                  .Query(q => q
+                                   .MatchAll()
+
+                                        ).From((page - 1) * pageSize)
+                                        .Size(pageSize)
+                                        );
+
+            var result = new List<LogDto>();
+            foreach (var document in response.Documents)
+            {
+                result.Add(document);
+            }
+
+            return result.Distinct().ToList();
+        }
+        [HttpPost("deleteIndex")]
+        public void DeleteIndex(string name)
+        {
+            _elasticClient.DeleteIndex(name);
+        }
+
     }
 }

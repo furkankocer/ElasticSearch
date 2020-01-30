@@ -71,6 +71,7 @@ namespace ElasticSearch.Bussiness
                             MobilNo = worksheet.Cells[row, 3].Value.ToString().Trim(),
                             BirthDate = worksheet.Cells[row, 4].Value.ToString().Trim(),
                             LastLocation = worksheet.Cells[row, 5].Value.ToString().Trim(),
+                            DateTime = DateTime.Now
                         });
                     }
                 }
@@ -86,14 +87,17 @@ namespace ElasticSearch.Bussiness
             await _elasticClient.IndexManyAsync(users, indexName);
         }
 
-        public async Task<List<LogDto>> Search(string indexName, string keyword)
+        public async Task<List<LogDto>> Search(string indexName, string keyword, int page, int pageSize)
         {
             var searchResponse = await _elasticClient.SearchAsync<LogDto>(s => s
                                      .Index(indexName)
                                         .Query(q => q
                                         .Prefix(p => p.Name, keyword) && +q
                                         .Range(r => r
-                                        .Field(f => f.Name))));
+                                        .Field(f => f.Name)))
+                                        .From((page - 1) * pageSize)
+                                        .Size(pageSize)
+                                        );
 
             var result = new List<LogDto>();
 
